@@ -35,5 +35,9 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public String regist() {
+		return "/board/register";
+	}
 	
 }
