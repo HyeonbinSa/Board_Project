@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.benworld.domain.BoardVO;
+import com.benworld.domain.Criteria;
+import com.benworld.domain.PageMaker;
 import com.benworld.service.BoardService;
 
 @Controller
@@ -40,6 +42,23 @@ public class BoardController {
 	public void listAll(Model model)throws Exception{
 		logger.info("listAll get ..................");
 		model.addAttribute("list", service.listAll());
+	}
+	@RequestMapping(value="/listPage", method=RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception{
+		logger.info(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri);
+		pm.setTotalCount(service.listCountCriteria(cri));
+		
+		model.addAttribute("pageMaker", pm);
+	}
+	@RequestMapping(value="/listCri", method = RequestMethod.GET)
+	public void listCri(Criteria cri, Model model)throws Exception{
+		logger.info("show list Page With Criteria.............");
+		
+		model.addAttribute("list", service.listCriteria(cri));
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public void read(@RequestParam("bno")int bno, Model model)throws Exception {

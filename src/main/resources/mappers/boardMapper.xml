@@ -39,4 +39,20 @@
 		limit #{page}, 10
 		]]>
 	</select>
+	<select id="listCriteria" resultType="com.benworld.domain.BoardVO">
+		<![CDATA[
+		select * 
+		from board_table
+		where bno>0
+		order by bno desc, regdate desc
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+		<select id="countPaging" resultType="int">
+		<![CDATA[
+		select count(bno) 
+		from board_table
+		where bno>0
+		]]>
+	</select>
 </mapper>

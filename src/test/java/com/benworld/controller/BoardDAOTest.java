@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.benworld.domain.BoardVO;
+import com.benworld.domain.Criteria;
 import com.benworld.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -59,6 +60,20 @@ public class BoardDAOTest {
 		for(BoardVO vo : list) {
 			logger.info(vo.getBno() + " : " + vo.getTitle());;
 		}
+	}
+	
+	@Test
+	public void testCri()throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(20);
+		
+		List<BoardVO> list = dao.listCriteria(cri);
+		System.out.println("Criteria Test Start............");
+		for(BoardVO vo : list) {
+			logger.info(vo.getBno() + " : " + vo.getTitle());;
+		}
+		System.out.println("Criteria Test End............");
 	}
 	
 }
