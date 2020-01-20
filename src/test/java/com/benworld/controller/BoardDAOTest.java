@@ -1,5 +1,7 @@
 package com.benworld.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -50,4 +52,13 @@ public class BoardDAOTest {
 	public void testDelete() throws Exception{
 		dao.delete(2);
 	}
+	@Test
+	public void testListPage() throws Exception{
+		int page=3;
+		List<BoardVO> list = dao.listPage(page);
+		for(BoardVO vo : list) {
+			logger.info(vo.getBno() + " : " + vo.getTitle());;
+		}
+	}
+	
 }

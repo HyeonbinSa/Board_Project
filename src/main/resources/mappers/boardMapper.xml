@@ -31,4 +31,12 @@
 		order by bno desc, regdate desc
 		]]>
 	</select>
+	<select id="listPage" resultType="com.benworld.domain.BoardVO">
+		<![CDATA[
+		select * 
+		from board_table
+		order by bno desc, regdate desc
+		limit #{page}, 10
+		]]>
+	</select>
 </mapper>
