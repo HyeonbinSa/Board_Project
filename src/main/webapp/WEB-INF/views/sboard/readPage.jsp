@@ -21,15 +21,17 @@ $(document).ready(function(){
 	
 	$(".modify").on("click", function(){
 		formObj.attr("method", "get");
-		formObj.attr("action", "/board/modifyPage");
+		formObj.attr("action", "/sboard/modifyPage");
 		formObj.submit();
 	});
 	$(".remove").on("click", function(){
-		formObj.attr("action", "/board/removePage");
+		formObj.attr("action", "/sboard/removePage");
 		formObj.submit();
 	});	
 	$(".list").on("click", function(){
-		self.location = "/board/listPage";
+		formObj.attr("method", "get");
+		formObj.attr("action", "/sboard/list");
+		formObj.submit();
 	});
 	
 });
@@ -68,6 +70,8 @@ $(document).ready(function(){
 	<input type="hidden" name="bno" value="${vo.bno}"/>
 	<input type="hidden" name="page" value="${cri.page}"/>
 	<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
+	<input type="hidden" name="searchType" value="${cri.searchType}"/>
+	<input type="hidden" name="keyword" value="${cri.keyword}"/>
 </form>
 </body>
 </html>
