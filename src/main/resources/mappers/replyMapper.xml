@@ -33,4 +33,14 @@
 		order by rno desc
 		]]>
 	</select> -->
+	<select id="listPage" resultType="ReplyVO">
+		select *
+		from reply_table
+		where bno = #{bno}
+		order by rno desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="count" resultType="int">
+		select count(bno) from reply_table where bno = #{bno}
+	</select>
 </mapper>
