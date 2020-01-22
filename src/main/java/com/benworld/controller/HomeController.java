@@ -40,4 +40,9 @@ public class HomeController {
 		return "/board/register";
 	}
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void ajaxTest() {
+		
+	}
+	
 }

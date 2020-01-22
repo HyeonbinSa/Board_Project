@@ -1,6 +1,8 @@
 package com.benworld.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.benworld.domain.Criteria;
+import com.benworld.domain.PageMaker;
 import com.benworld.domain.ReplyVO;
 import com.benworld.service.ReplyService;
 
@@ -73,6 +77,35 @@ public class ReplyController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+		return entity;
+	}
+	
+	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("bno") Integer bno,@PathVariable("page") Integer page){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setPage(page);
+			
+			PageMaker pm = new PageMaker();
+			pm.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<ReplyVO> list = service.listReplyPage(bno, cri);
+			
+			map.put("list", list);
+			
+			int replyCount = service.count(bno);
+			pm.setTotalCount(replyCount);
+			
+			map.put("pageMaker", pm);
+			
+			entity = new ResponseEntity<Map<String, Object>>(map,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		
 		return entity;
 	}
 }

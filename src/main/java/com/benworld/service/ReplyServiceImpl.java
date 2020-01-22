@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.benworld.domain.Criteria;
 import com.benworld.domain.ReplyVO;
 import com.benworld.persistence.ReplyDAO;
 
@@ -32,6 +33,16 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void removeReply(int rno) throws Exception {
 		dao.delete(rno);
+	}
+
+	@Override
+	public List<ReplyVO> listReplyPage(Integer bno, Criteria cri) throws Exception {
+		return dao.listPage(bno, cri);
+	}
+
+	@Override
+	public int count(Integer bno) throws Exception {
+		return dao.count(bno);
 	}
 	
 }
