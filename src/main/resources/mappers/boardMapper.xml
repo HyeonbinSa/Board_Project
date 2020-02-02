@@ -99,4 +99,7 @@
 		]]>
 		<include refid="search"></include>
 	</select>
+	<update id="updateReplyCnt">
+		update board_table set replycnt = replycnt + #{amount}  where bno = #{bno}
+	</update>
 </mapper>

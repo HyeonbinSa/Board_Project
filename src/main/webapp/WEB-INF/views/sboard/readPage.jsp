@@ -119,7 +119,8 @@ $(document).ready(function(){
 		</div>
 		
 		<ul class="timeline">
-			<li class="time-label" id="repliesDiv"><span class="bg-green">댓글 목록</span></li>
+			<li class="time-label" id="repliesDiv"><span class="bg-green">댓글 목록
+			<small id="replycntSmall">[${vo.replycnt}]</small></span></li>
 		</ul>
 		<div class="text-center">
 			<ul id="pagination" class="pagination pagination-sm no-margin">
@@ -157,6 +158,7 @@ function getPage(pageInfo){
 		printPaging(data.pageMaker, $(".pagination"));
 		
 		$("#modifyModal").modal('hide');
+		$("#replycntSmall").html("[ "+data.pageMaker.totalCount +" ]");
 	});
 }
 // 하단 페이징 버튼 출력 

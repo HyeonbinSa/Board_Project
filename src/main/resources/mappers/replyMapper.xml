@@ -44,4 +44,7 @@
 	<select id="count" resultType="int">
 		select count(*) from reply_table where bno = #{bno}
 	</select>
+	<select id="getBno" resultType="int">
+		select bno from reply_table where rno = #{rno}
+	</select>
 </mapper>
