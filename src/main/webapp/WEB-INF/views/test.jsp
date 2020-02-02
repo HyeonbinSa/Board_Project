@@ -8,7 +8,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script>
-	var bno = 19934;
+	var bno = 2949067;
+	getPageList(1);
 	//alert("안녕"); //스크립트 진입 테스트.
 	/*
 	$.getJSON("/replies/all/"+bno, function(data){
@@ -30,8 +31,52 @@
 				str +="<li data-rno='"+this.rno+ "'class='replyLi'>"+this.rno+":"+this.replytext+"<button>MOD</button></li>";
 			});
 		$("#replies").html(str);
+	
+		});
+		
+	}
+	
+	function getPageList(page){	
+
+		$.getJSON("/replies/"+bno+"/"+page, function(data){
+			
+			console.log(data.list.length);
+			var str ="";
+			
+			$(data.list).each( function(){
+				str+= "<li data-rno='"+this.rno+"' class='replyLi'>"
+				+this.rno+":"+this.replytext+
+				"<button>MOD</button></li>";
+			});
+			$('#replies').html(str);
+			printPaging(data.pageMaker);
 		});
 	}
+
+	function printPaging(pageMaker){
+		
+		var str = "";
+		
+		if(pageMaker.prev){
+			str += "<li><a href='"+(pageMaker.startPage - 1)+"'> << </a></li>'";
+		}
+		for(var i=pageMaker.startPage, len = pageMaker.endPage; i<=len;i++){
+			var strClass = pageMaker.cri.page == i?'class=active':'';
+			str += "<li " +strClass +"><a href='"+i+"'>"+i+"</a></li>";
+		}
+		if(pageMaker.next){
+			str += "<li><a href='"+(pageMaker.endPage + 1)+"'> >> </a></li>'";
+		}
+		$('.pagination').html(str);
+	}
+	var replyPage =1;
+	$(".pagination").on("click", "li a", function(event){
+		event.preventDefault();
+		
+		replyPage = $(this).attr("href");
+		
+		getPageList(replyPage);
+	});
 </script>
 <style>
 #modDiv{
@@ -79,6 +124,7 @@
 	</div>
 </div>
  <script>
+	//등록 버튼 기능 ------------------------------------
 	$("#replyAddBtn").on("click", function(){
 		//alert("클릭 ");
 		var replyer = $("#newReplyWriter").val();
@@ -101,10 +147,12 @@
 				if(result == 'SUCCESS'){
 					alert("등록 완료! ");
 					getAllList();
+					//getPageList(1);
 				}
 			}
 		});
 	});
+	// 수정 div 불러오기  ------------------------------------
 	$("#replies").on("click", ".replyLi button", function(){
 		var reply = $(this).parent();
 		
@@ -115,6 +163,7 @@
 		$("#replytext").val(replytext);
 		$("#modDiv").show("slow");
 	});
+	// 삭제 버튼 기능 ------------------------------------
 	$("#replyDelBtn").on("click", function(){
 		var rno = $(".modal-title").html();
 		var replytext = $("#replytext").val();
@@ -130,12 +179,12 @@
 				if(result == 'SUCCESS'){
 					alert("삭제 되었습니다. ");
 					$("#modDiv").hide("slow");
-					getAllList();
+					getPageList(replyPage);
 				}
 			}
 		});
 	});
-	// 수정 버튼 기능 
+	// 수정 버튼 기능 ------------------------------------
 	$("#replyModBtn").on("click", function(){
 		var rno = $(".modal-title").html();
 		var replytext = $("#replytext").val();
@@ -152,12 +201,13 @@
 				if(result == 'SUCCESS'){
 					alert("수정 되었습니다. ");
 					$("#modDiv").hide("slow");
-					getAllList();
-					//getPageList(replyPage);
+					//getAllList();
+					getPageList(replyPage);
 				}
 			}
 		});
 	});
- </script>
+	// ------------------------------------------------
+</script>
 </body>
 </html>

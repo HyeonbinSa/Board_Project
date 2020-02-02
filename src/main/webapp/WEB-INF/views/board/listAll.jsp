@@ -30,14 +30,14 @@
 <h2>전체 글 목록 </h2>
 <hr>
 <button class="register">글 등록</button>
-<table border="1">
+<table class="table table-bordered">
 	<tr>
-		<th>BNO</th>
+		<th style="width:10px">BNO</th>
 		<th>제목</th>
 		<th>내용</th>
 		<th>작성자</th>
 		<th>등록일</th>
-		<th>조회수</th>
+		<th style="width:40px">조회수</th>
 	</tr>
 	<c:forEach items="${list }" var="vo">
 		<tr>
@@ -46,7 +46,7 @@
 		<td>${vo.content}</td>
 		<td>${vo.writer}</td>
 		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
-		<td>${vo.viewcnt}</td>
+		<td><span class="badge bg-red">${vo.viewcnt}</span></td>
 		</tr>
 	</c:forEach>
 </table>

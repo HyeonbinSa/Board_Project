@@ -40,7 +40,8 @@
 		order by rno desc
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	
 	<select id="count" resultType="int">
-		select count(bno) from reply_table where bno = #{bno}
+		select count(*) from reply_table where bno = #{bno}
 	</select>
 </mapper>

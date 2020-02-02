@@ -52,7 +52,7 @@ public class ReplyController {
 		}
 		return entity;
 	}
-	
+	// 댓글 수정 처리 
 	@RequestMapping(value="/{rno}" , method= {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("rno")Integer rno, @RequestBody ReplyVO vo){
 		ResponseEntity<String> entity = null;
@@ -80,7 +80,10 @@ public class ReplyController {
 		return entity;
 	}
 	
-	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("bno") Integer bno,@PathVariable("page") Integer page){
+	// 댓글 리스트를 페이징.
+	@RequestMapping(value="/{bno}/{page}", method= RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("bno") Integer bno, @PathVariable("page") Integer page){
+		
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try {
@@ -89,7 +92,7 @@ public class ReplyController {
 			
 			PageMaker pm = new PageMaker();
 			pm.setCri(cri);
-			
+			//System.out.println("1 : " + pm.toString());
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<ReplyVO> list = service.listReplyPage(bno, cri);
 			
@@ -97,10 +100,11 @@ public class ReplyController {
 			
 			int replyCount = service.count(bno);
 			pm.setTotalCount(replyCount);
-			
+			//System.out.println("2 : "+ pm.toString());
 			map.put("pageMaker", pm);
 			
 			entity = new ResponseEntity<Map<String, Object>>(map,HttpStatus.OK);
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);

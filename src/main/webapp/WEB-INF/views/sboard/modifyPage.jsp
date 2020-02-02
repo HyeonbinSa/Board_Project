@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>수정 화면 </title>
-</head>
+    
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+
+<%@include file="/WEB-INF/views/include/header.jsp" %>
 <script>
 $(document).ready(function(){
 	var formObj = $("form[role='form']");
@@ -21,7 +20,6 @@ $(document).ready(function(){
 	});
 });
 </script>
-<body>
 <h2>수정 화면</h2>
 <hr>
 <form role="form" method="post" action="modifyPage" >
@@ -29,7 +27,7 @@ $(document).ready(function(){
 <input type="hidden" name="perPageNum" value="${cri.perPageNum }"/>
 <input type="hidden" name="searchType" value="${cri.searchType }"/>
 <input type="hidden" name="keyword" value="${cri.keyword }"/>
-<table>
+<table class="table table-bordered">
 	<tr>
 	<td>번호</td>
 		<td><input type="text" name="bno" readonly="readonly" value="${vo.bno }"/>
@@ -51,5 +49,5 @@ $(document).ready(function(){
 	</tr>
 </table>
 </form>
-</body>
-</html>
+
+<%@include file="/WEB-INF/views/include/footer.jsp" %>

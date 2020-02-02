@@ -2,13 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<!DOCTYPE html>
 
-<html>
-<head>
-<meta charset="UTF-8">
-<title>등록 회원 Criteria 리스트</title>
-</head>
+<%@include file="/WEB-INF/views/include/header.jsp" %>
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
 	var result = '${msg}';
@@ -33,8 +29,9 @@
 		//});
 	});
 </script>
-<body>
-<h2>전체 글 목록 </h2>
+
+<div class="box-body">
+ <h2>전체 글 목록 </h2>
 <hr>
 <div>
 <select name="searchType">
@@ -58,37 +55,36 @@
 <button id="newBtn">새 게시글</button>
 </div>
 <hr>
-<button class="register">글 등록</button>
-<table border="1">
+<table class="table table-bordered">
 	<tr>
-		<th>BNO</th>
+		<th style="width:10px">BNO</th>
 		<th>제목</th>
 		<th>내용</th>
 		<th>작성자</th>
 		<th>등록일</th>
-		<th>조회수</th>
+		<th style="width: 40px">조회수</th>
 	</tr>
 	<c:forEach items="${list }" var="vo">
 		<tr>
-		<td>${vo.bno }</td>
-		<!-- <td><a href="/board/read?bno=${vo.bno}">${vo.title}</a></td> -->
-		<td><a href="/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${vo.bno}">${vo.title}</a></td> 
-		<td>${vo.content}</td>
-		<td>${vo.writer}</td>
-		<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
-		<td>${vo.viewcnt}</td>
+			<td>${vo.bno }</td>
+			<!-- <td><a href="/board/read?bno=${vo.bno}">${vo.title}</a></td> -->
+			<td><a href="/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${vo.bno}">${vo.title}</a></td> 
+			<td>${vo.content}</td>
+			<td>${vo.writer}</td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/></td>
+			<td><span class="badge bg-red">${vo.viewcnt}</span></td>
 		</tr>
 	</c:forEach>
 </table>
-<div>
-	<ul>
+<div class="text-center">
+	<ul class="pagination">
 		<c:if test="${pageMaker.prev }">
 			<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 		</c:if>
 		
 		<c:forEach begin="${pageMaker.startPage }"
 			end="${pageMaker.endPage }" var="idx">
-			<li <c:out value="${pageMaker.cri.page == idx?'class =active':'' }"/>>
+			<li <c:out value="${pageMaker.cri.page == idx?'class=active':'' }"/>>
 			<a href="list${pageMaker.makeSearch(idx) }">${idx }</a></li>
 		</c:forEach>
 		
@@ -98,5 +94,5 @@
 		</c:if>
 	</ul>
 </div>
-</body>
-</html>
+</div>
+<%@include file="/WEB-INF/views/include/footer.jsp" %>

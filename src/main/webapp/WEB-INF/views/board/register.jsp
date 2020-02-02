@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>등록 화면 </title>
-</head>
-<body>
-<h2>등록 화면</h2>
-<hr>
-<form method="post">
+<%@include file="/WEB-INF/views/include/header.jsp" %>
+
+
+<form method="post" role="form">
+<div class="box-body">
 <table>
 	<tr>
 		<td>제목</td>
@@ -25,6 +20,8 @@
 	</tr>
 	<tr><td><input type="submit" value="등록"></td></tr>
 </table>
+</div>
 </form>
-</body>
-</html>
+
+
+<%@include file="/WEB-INF/views/include/footer.jsp" %>
